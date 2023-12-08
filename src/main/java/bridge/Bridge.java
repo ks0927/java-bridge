@@ -7,10 +7,17 @@ public class Bridge {
 
     private final List<BridgeMove> bridgeMoves;
 
-    public Bridge(List<String> bridgeMoves) {
-        this.bridgeMoves = bridgeMoves.stream()
-                .map(n -> BridgeMove.of(n))
-                .collect(Collectors.toList());
+    private Bridge(List<BridgeMove> bridgeMoves) {
+        this.bridgeMoves = bridgeMoves;
     }
 
+    public static Bridge of(List<String> bridgeMoves) {
+        return new Bridge(bridgeMoves.stream()
+                .map(n -> BridgeMove.of(n))
+                .collect(Collectors.toList()));
+    }
+
+    public boolean compare(BridgeMove bridgeMove, int round) {
+        return bridgeMoves.get(round - 1).equals(bridgeMove);
+    }
 }

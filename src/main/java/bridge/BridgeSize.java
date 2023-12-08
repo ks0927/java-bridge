@@ -19,4 +19,8 @@ public class BridgeSize {
     private boolean InvalidRange(int target) {
         return target < 3 || target > 20;
     }
+
+    public int getLength() {
+        return length;
+    }
 }
