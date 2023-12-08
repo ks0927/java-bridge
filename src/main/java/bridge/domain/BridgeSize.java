@@ -12,7 +12,7 @@ public class BridgeSize {
 
     private void validate(int target) {
         if (InvalidRange(target)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(INVALID_RANGE_MESSAGE);
         }
     }
 
