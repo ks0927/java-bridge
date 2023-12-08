@@ -9,7 +9,11 @@ public class OutputResolver {
     public static final String SUCCESS_MARK = " O ";
     public static final String BLANK_MARK = "   ";
     public static final String FAIL_MARK = " X ";
+    public static final String SUCCESS_MESSAGE = "성공";
+    public static final String FAIL_MESSAGE = "실패";
     private static final String GAME_RESULT_MESSAGE = "최종 게임 결과\n";
+    private static final String GAME_RESULT_SUCCESS_PREFIX = "게임 성공 여부: ";
+    private static final String GAME_RESULT_TOTAL_COUNT_PREFIX = "총 시도한 횟수: ";
 
     public String resolveRoundResult(List<RoundResultDto> roundResultDtos) {
         String upPosition = START_PREFIX;
@@ -38,15 +42,15 @@ public class OutputResolver {
     public String resolveGameResult(GameResultDto gameResultDto) {
         String result = GAME_RESULT_MESSAGE;
         result += resolveRoundResult(gameResultDto.getGameResult()) + "\n";
-        result += "게임 성공 여부: " + makeResult(gameResultDto) + "\n";
-        result += "총 시도한 횟수: " + gameResultDto.getTotalCount() + "\n";
+        result += GAME_RESULT_SUCCESS_PREFIX + makeResult(gameResultDto) + "\n";
+        result += GAME_RESULT_TOTAL_COUNT_PREFIX + gameResultDto.getTotalCount() + "\n";
         return result;
     }
 
     private String makeResult(GameResultDto gameResultDto) {
         if (gameResultDto.isSuccess()) {
-            return "성공";
+            return SUCCESS_MESSAGE;
         }
-        return "실패";
+        return FAIL_MESSAGE;
     }
 }
