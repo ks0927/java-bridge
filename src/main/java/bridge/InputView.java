@@ -1,15 +1,27 @@
 package bridge;
 
+import camp.nextstep.edu.missionutils.Console;
+
+import java.util.function.Supplier;
+
 /**
  * 사용자로부터 입력을 받는 역할을 한다.
  */
 public class InputView {
+    private static final String READ_BRIDGE_SIZE_MESSAGE = "다리의 길이를 입력해주세요.";
+
+    private final InputMapper inputMapper;
+
+    public InputView(InputMapper inputMapper) {
+        this.inputMapper = inputMapper;
+    }
 
     /**
      * 다리의 길이를 입력받는다.
      */
-    public int readBridgeSize() {
-        return 0;
+    public BridgeSize readBridgeSize() {
+        System.out.println(READ_BRIDGE_SIZE_MESSAGE);
+        return getInputUntilValid(() -> inputMapper.mapToBridgeSize(Console.readLine()));
     }
 
     /**
@@ -24,5 +36,17 @@ public class InputView {
      */
     public String readGameCommand() {
         return null;
+    }
+
+
+    private <T> T getInputUntilValid(Supplier<T> supplier) {
+        while (true) {
+            try {
+                return supplier.get();
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
     }
 }
