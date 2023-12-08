@@ -37,7 +37,7 @@ public class OutputResolver {
 
     public String resolveGameResult(GameResultDto gameResultDto) {
         String result = GAME_RESULT_MESSAGE;
-        result += resolveRoundResult(gameResultDto.getGameResult());
+        result += resolveRoundResult(gameResultDto.getGameResult()) + "\n";
         result += "게임 성공 여부: " + makeResult(gameResultDto) + "\n";
         result += "총 시도한 횟수: " + gameResultDto.getTotalCount() + "\n";
         return result;
