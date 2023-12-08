@@ -12,4 +12,8 @@ public class InputMapper {
         }
         return new BridgeSize(bridgeSize);
     }
+
+    public BridgeMove mapToBridgeMove(String input) {
+        return BridgeMove.of(input);
+    }
 }

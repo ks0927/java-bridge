@@ -9,6 +9,7 @@ import java.util.function.Supplier;
  */
 public class InputView {
     private static final String READ_BRIDGE_SIZE_MESSAGE = "다리의 길이를 입력해주세요.";
+    private static final String READ_BRIDGE_MOVE_MESSAGE = "이동할 칸을 선택해주세요. (위: U, 아래: D)";
 
     private final InputMapper inputMapper;
 
@@ -27,8 +28,9 @@ public class InputView {
     /**
      * 사용자가 이동할 칸을 입력받는다.
      */
-    public String readMoving() {
-        return null;
+    public BridgeMove readMoving() {
+        System.out.println(READ_BRIDGE_MOVE_MESSAGE);
+        return getInputUntilValid(() -> inputMapper.mapToBridgeMove(Console.readLine()));
     }
 
     /**
