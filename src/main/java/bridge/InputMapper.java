@@ -16,4 +16,8 @@ public class InputMapper {
     public BridgeMove mapToBridgeMove(String input) {
         return BridgeMove.of(input);
     }
+
+    public GameCommand mapToGameCommand(String input) {
+        return GameCommand.of(input);
+    }
 }
