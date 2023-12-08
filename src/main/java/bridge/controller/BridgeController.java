@@ -1,4 +1,14 @@
-package bridge;
+package bridge.controller;
+
+import bridge.service.BridgeRandomNumberGenerator;
+import bridge.domain.BridgeMove;
+import bridge.domain.BridgeSize;
+import bridge.domain.GameCommand;
+import bridge.dto.GameResultDto;
+import bridge.dto.RoundResultDto;
+import bridge.service.BridgeGame;
+import bridge.view.InputView;
+import bridge.view.OutputView;
 
 import java.util.ArrayList;
 import java.util.List;

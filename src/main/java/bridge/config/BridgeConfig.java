@@ -1,4 +1,11 @@
-package bridge;
+package bridge.config;
+
+import bridge.controller.BridgeController;
+import bridge.service.BridgeGame;
+import bridge.view.InputMapper;
+import bridge.view.InputView;
+import bridge.view.OutputResolver;
+import bridge.view.OutputView;
 
 public class BridgeConfig {
     public BridgeController bridgeController() {

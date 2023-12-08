@@ -1,4 +1,9 @@
-package bridge;
+package bridge.service;
+
+import bridge.domain.Bridge;
+import bridge.domain.BridgeMove;
+import bridge.domain.BridgeSize;
+import bridge.dto.RoundResultDto;
 
 import java.util.List;
 

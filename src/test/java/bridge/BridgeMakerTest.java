@@ -1,6 +1,7 @@
 package bridge;
 
-import org.assertj.core.api.Assertions;
+import bridge.service.BridgeMaker;
+import bridge.service.BridgeNumberGenerator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +10,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 class BridgeMakerTest {
     @DisplayName("1, 0 값들이 주어질 때 D, U로 이루어진 다리를 반환")

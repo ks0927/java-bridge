@@ -1,4 +1,8 @@
-package bridge;
+package bridge.view;
+
+import bridge.domain.BridgeMove;
+import bridge.domain.BridgeSize;
+import bridge.domain.GameCommand;
 
 public class InputMapper {
     private static final String INVALID_BRIDGE_SIZE_TYPE_MESSAGE = "[ERROR] 다리의 길이는 숫자여야 합니다.";

@@ -1,4 +1,8 @@
-package bridge;
+package bridge.view;
+
+import bridge.domain.BridgeMove;
+import bridge.dto.GameResultDto;
+import bridge.dto.RoundResultDto;
 
 import java.util.List;
 

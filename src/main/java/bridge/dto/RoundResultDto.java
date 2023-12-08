@@ -1,4 +1,6 @@
-package bridge;
+package bridge.dto;
+
+import bridge.domain.BridgeMove;
 
 public class RoundResultDto {
     private BridgeMove bridgeMove;

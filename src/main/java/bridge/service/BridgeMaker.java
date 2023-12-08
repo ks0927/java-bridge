@@ -1,4 +1,6 @@
-package bridge;
+package bridge.service;
+
+import bridge.domain.BridgeMove;
 
 import java.util.List;
 import java.util.stream.Collectors;

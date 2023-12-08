@@ -1,4 +1,4 @@
-package bridge;
+package bridge.domain;
 
 public class BridgeSize {
     private static final String INVALID_RANGE_MESSAGE = "[ERROR] 다리 길이는 3부터 20 사이의 숫자여야 합니다.";
