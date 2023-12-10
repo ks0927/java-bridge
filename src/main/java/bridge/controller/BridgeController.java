@@ -29,7 +29,7 @@ public class BridgeController {
         outputView.printGameStart();
 
         BridgeSize bridgeSize = inputView.readBridgeSize();
-        bridgeGame.makeBridge(bridgeSize, new BridgeRandomNumberGenerator());
+        bridgeGame.makeBridge(bridgeSize);
 
         List<RoundResultDto> map = new ArrayList<>();
         GameResultDto gameResultDto = gamePlay(bridgeSize, map);

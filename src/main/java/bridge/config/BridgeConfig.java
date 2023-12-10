@@ -2,6 +2,8 @@ package bridge.config;
 
 import bridge.controller.BridgeController;
 import bridge.service.BridgeGame;
+import bridge.service.BridgeNumberGenerator;
+import bridge.service.BridgeRandomNumberGenerator;
 import bridge.view.InputMapper;
 import bridge.view.InputView;
 import bridge.view.OutputResolver;
@@ -13,7 +15,11 @@ public class BridgeConfig {
     }
 
     public BridgeGame bridgeGame() {
-        return new BridgeGame();
+        return new BridgeGame(bridgeNumberGenerator());
+    }
+
+    public BridgeNumberGenerator bridgeNumberGenerator() {
+        return new BridgeRandomNumberGenerator();
     }
 
     public OutputView outputView() {

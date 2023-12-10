@@ -12,11 +12,16 @@ import java.util.List;
  */
 public class BridgeGame {
     private Bridge bridge;
+    private final BridgeNumberGenerator bridgeNumberGenerator;
 
-    public void makeBridge(BridgeSize bridgeSize, BridgeNumberGenerator bridgeNumberGenerator) {
+    public BridgeGame(BridgeNumberGenerator bridgeNumberGenerator) {
+        this.bridgeNumberGenerator = bridgeNumberGenerator;
+    }
+
+    public void makeBridge(BridgeSize bridgeSize) {
         BridgeMaker bridgeMaker = new BridgeMaker(bridgeNumberGenerator);
-        List<String> strings = bridgeMaker.makeBridge(bridgeSize.getLength());
-        bridge = Bridge.of(strings);
+        List<String> directions = bridgeMaker.makeBridge(bridgeSize.getLength());
+        bridge = Bridge.of(directions);
     }
 
     /**
