@@ -1,17 +1,12 @@
 package bridge.controller;
 
-import bridge.service.BridgeRandomNumberGenerator;
-import bridge.domain.Direction;
 import bridge.domain.BridgeSize;
+import bridge.domain.Direction;
 import bridge.domain.GameCommand;
-import bridge.dto.GameResultDto;
 import bridge.dto.RoundResultDto;
 import bridge.service.BridgeGame;
 import bridge.view.InputView;
 import bridge.view.OutputView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class BridgeController {
 
@@ -29,37 +24,32 @@ public class BridgeController {
         outputView.printGameStart();
 
         BridgeSize bridgeSize = inputView.readBridgeSize();
-        bridgeGame.makeBridge(bridgeSize);
+        bridgeGame.initializeGame(bridgeSize);
 
-        List<RoundResultDto> map = new ArrayList<>();
-        GameResultDto gameResultDto = gamePlay(bridgeSize, map);
-        outputView.printResult(gameResultDto);
+        while(!bridgeGame.isGameEnd()) {
+            playRound();
+        }
+
+        outputView.printResult(bridgeGame.getGameResult());
     }
 
-    private GameResultDto gamePlay(BridgeSize bridgeSize, List<RoundResultDto> map) {
-        int totalTryCount = 1;
-        int roundCount = 1;
-        while (true) {
-            Direction direction = inputView.readMoving();
-            RoundResultDto move = bridgeGame.move(direction, roundCount);
-            map.add(move);
-            roundCount++;
-            outputView.printMap(map);
-            if (roundCount == bridgeSize.getLength() + 1) {
-                return new GameResultDto(map, true, totalTryCount);
-            }
-            if (move.isCanMove() == false) {
-                GameCommand gameCommand = inputView.readGameCommand();
-                if (gameCommand.equals(GameCommand.RESTART)) {
-                    totalTryCount++;
-                    bridgeGame.retry(map);
-                    roundCount = 1;
-                }
+    private void playRound() {
+        Direction direction = inputView.readMoving();
+        RoundResultDto moveResult = bridgeGame.move(direction);
+        outputView.printMap(bridgeGame.getRoundResults());
 
-                if (gameCommand.equals(GameCommand.QUIT)) {
-                    return new GameResultDto(map, false, totalTryCount);
-                }
-            }
+        if (!moveResult.isCanMove()) {
+            handleGameCommand();
+        }
+    }
+
+    private void handleGameCommand() {
+        GameCommand gameCommand = inputView.readGameCommand();
+        if (gameCommand.equals(GameCommand.RESTART)) {
+            bridgeGame.retry();
+        }
+        if (gameCommand.equals(GameCommand.QUIT)) {
+            bridgeGame.quitGame();
         }
     }
 }
