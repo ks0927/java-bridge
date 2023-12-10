@@ -10,11 +10,11 @@ public enum Direction {
     private static final String INVALID_NUMBER_MESSAGE = "[ERROR] 다리의 숫자는 1 또는 0만 가능합니다.";
 
     private final String position;
-    private final int number;
+    private final int positionCode;
 
-    Direction(String position, int number) {
+    Direction(String position, int positionCode) {
         this.position = position;
-        this.number = number;
+        this.positionCode = positionCode;
     }
 
     public static Direction of(String target) {
@@ -26,7 +26,7 @@ public enum Direction {
 
     public static String numberToPosition(int number) {
         return Arrays.stream(values())
-                .filter(bridgeMove -> bridgeMove.number == number)
+                .filter(bridgeMove -> bridgeMove.positionCode == number)
                 .map(Direction::getPosition)
                 .findAny()
                 .orElseThrow(() -> new IllegalArgumentException(INVALID_NUMBER_MESSAGE));
@@ -36,7 +36,7 @@ public enum Direction {
         return position;
     }
 
-    public int getNumber() {
-        return number;
+    public int getPositionCode() {
+        return positionCode;
     }
 }
