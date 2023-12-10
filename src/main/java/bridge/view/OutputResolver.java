@@ -4,7 +4,13 @@ import bridge.domain.Direction;
 import bridge.dto.GameResultDto;
 import bridge.dto.RoundResultDto;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class OutputResolver {
     public static final String START_PREFIX = "[";
@@ -15,25 +21,50 @@ public class OutputResolver {
     public static final String FAIL_MARK = " X ";
     public static final String SUCCESS_MESSAGE = "성공";
     public static final String FAIL_MESSAGE = "실패";
-    private static final String GAME_RESULT_MESSAGE = "최종 게임 결과\n";
+    private static final String GAME_RESULT_MESSAGE = "최종 게임 결과";
     private static final String GAME_RESULT_SUCCESS_PREFIX = "게임 성공 여부: ";
     private static final String GAME_RESULT_TOTAL_COUNT_PREFIX = "총 시도한 횟수: ";
 
     public String resolveRoundResult(List<RoundResultDto> roundResultDtos) {
-        String upPosition = START_PREFIX;
-        String downPosition = START_PREFIX;
+        Map<Direction, StringBuilder> positions = initializePositions();
+
         for (RoundResultDto roundResultDto : roundResultDtos) {
-            if (roundResultDto.getBridgeMove().equals(Direction.UP)) {
-                upPosition += makeMark(roundResultDto) + ROUND_SUFFIX;
-                downPosition += BLANK_MARK + ROUND_SUFFIX;
-            }
-            if (roundResultDto.getBridgeMove().equals(Direction.DOWN)) {
-                upPosition += BLANK_MARK + ROUND_SUFFIX;
-                downPosition += makeMark(roundResultDto) + ROUND_SUFFIX;
-            }
+            appendMarkByDirection(positions, roundResultDto);
         }
-        return upPosition.substring(0, upPosition.length() - 1) + END_SUFFIX + "\n" +
-                downPosition.substring(0, downPosition.length() - 1) + END_SUFFIX;
+        return formatOutput(positions);
+    }
+
+    private Map<Direction, StringBuilder> initializePositions() {
+        return Arrays.stream(Direction.values())
+                .collect(Collectors.toMap(
+                        Function.identity(),
+                        v -> new StringBuilder(START_PREFIX),
+                        (existing, replacement) -> existing,
+                        () -> new TreeMap<>(Comparator.comparingInt(Direction::getPositionCode).reversed())
+                ));
+    }
+
+    private void appendMarkByDirection(Map<Direction, StringBuilder> positions, RoundResultDto roundResultDto) {
+        positions.keySet()
+                .forEach(direction -> appendMarkToPosition(positions.get(direction), roundResultDto, direction));
+    }
+
+    private void appendMarkToPosition(StringBuilder position, RoundResultDto roundResultDto, Direction direction) {
+        String mark = BLANK_MARK;
+        if (roundResultDto.getBridgeMove().equals(direction)) {
+            mark = makeMark(roundResultDto);
+        }
+        position.append(mark).append(ROUND_SUFFIX);
+    }
+
+    private String formatOutput(Map<Direction, StringBuilder> positions) {
+        return positions.values().stream()
+                .map(this::formatPosition)
+                .collect(Collectors.joining("\n"));
+    }
+
+    private String formatPosition(StringBuilder position) {
+        return position.substring(0, position.length() - 1) + END_SUFFIX;
     }
 
     private String makeMark(RoundResultDto roundResultDto) {
@@ -44,11 +75,12 @@ public class OutputResolver {
     }
 
     public String resolveGameResult(GameResultDto gameResultDto) {
-        String result = GAME_RESULT_MESSAGE;
-        result += resolveRoundResult(gameResultDto.getGameResult()) + "\n";
-        result += GAME_RESULT_SUCCESS_PREFIX + makeResult(gameResultDto) + "\n";
-        result += GAME_RESULT_TOTAL_COUNT_PREFIX + gameResultDto.getTotalCount() + "\n";
-        return result;
+        StringBuilder result = new StringBuilder();
+        result.append(GAME_RESULT_MESSAGE).append("\n");
+        result.append(resolveRoundResult(gameResultDto.getGameResult())).append("\n");
+        result.append(GAME_RESULT_SUCCESS_PREFIX).append(makeResult(gameResultDto)).append("\n");
+        result.append(GAME_RESULT_TOTAL_COUNT_PREFIX).append(gameResultDto.getTotalCount()).append("\n");
+        return result.toString();
     }
 
     private String makeResult(GameResultDto gameResultDto) {
