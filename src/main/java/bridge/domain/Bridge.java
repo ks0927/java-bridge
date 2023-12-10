@@ -5,19 +5,19 @@ import java.util.stream.Collectors;
 
 public class Bridge {
 
-    private final List<BridgeMove> bridgeMoves;
+    private final List<Direction> directions;
 
-    private Bridge(List<BridgeMove> bridgeMoves) {
-        this.bridgeMoves = bridgeMoves;
+    private Bridge(List<Direction> directions) {
+        this.directions = directions;
     }
 
     public static Bridge of(List<String> bridgeMoves) {
         return new Bridge(bridgeMoves.stream()
-                .map(n -> BridgeMove.of(n))
+                .map(n -> Direction.of(n))
                 .collect(Collectors.toList()));
     }
 
-    public boolean compare(BridgeMove bridgeMove, int round) {
-        return bridgeMoves.get(round - 1).equals(bridgeMove);
+    public boolean compare(Direction direction, int round) {
+        return directions.get(round - 1).equals(direction);
     }
 }

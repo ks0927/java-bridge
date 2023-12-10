@@ -2,7 +2,7 @@ package bridge.domain;
 
 import java.util.Arrays;
 
-public enum BridgeMove {
+public enum Direction {
     UP("U", 1),
     DOWN("D", 0);
 
@@ -12,12 +12,12 @@ public enum BridgeMove {
     private final String position;
     private final int number;
 
-    BridgeMove(String position, int number) {
+    Direction(String position, int number) {
         this.position = position;
         this.number = number;
     }
 
-    public static BridgeMove of(String target) {
+    public static Direction of(String target) {
         return Arrays.stream(values())
                 .filter(bridgeMove -> bridgeMove.position.equals(target))
                 .findAny()
@@ -27,7 +27,7 @@ public enum BridgeMove {
     public static String numberToPosition(int number) {
         return Arrays.stream(values())
                 .filter(bridgeMove -> bridgeMove.number == number)
-                .map(BridgeMove::getPosition)
+                .map(Direction::getPosition)
                 .findAny()
                 .orElseThrow(() -> new IllegalArgumentException(INVALID_NUMBER_MESSAGE));
     }

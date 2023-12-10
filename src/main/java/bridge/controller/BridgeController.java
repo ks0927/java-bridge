@@ -1,7 +1,7 @@
 package bridge.controller;
 
 import bridge.service.BridgeRandomNumberGenerator;
-import bridge.domain.BridgeMove;
+import bridge.domain.Direction;
 import bridge.domain.BridgeSize;
 import bridge.domain.GameCommand;
 import bridge.dto.GameResultDto;
@@ -40,8 +40,8 @@ public class BridgeController {
         int totalTryCount = 1;
         int roundCount = 1;
         while (true) {
-            BridgeMove bridgeMove = inputView.readMoving();
-            RoundResultDto move = bridgeGame.move(bridgeMove, roundCount);
+            Direction direction = inputView.readMoving();
+            RoundResultDto move = bridgeGame.move(direction, roundCount);
             map.add(move);
             roundCount++;
             outputView.printMap(map);

@@ -1,6 +1,6 @@
 package bridge.view;
 
-import bridge.domain.BridgeMove;
+import bridge.domain.Direction;
 import bridge.dto.GameResultDto;
 import bridge.dto.RoundResultDto;
 
@@ -23,11 +23,11 @@ public class OutputResolver {
         String upPosition = START_PREFIX;
         String downPosition = START_PREFIX;
         for (RoundResultDto roundResultDto : roundResultDtos) {
-            if (roundResultDto.getBridgeMove().equals(BridgeMove.UP)) {
+            if (roundResultDto.getBridgeMove().equals(Direction.UP)) {
                 upPosition += makeMark(roundResultDto) + ROUND_SUFFIX;
                 downPosition += BLANK_MARK + ROUND_SUFFIX;
             }
-            if (roundResultDto.getBridgeMove().equals(BridgeMove.DOWN)) {
+            if (roundResultDto.getBridgeMove().equals(Direction.DOWN)) {
                 upPosition += BLANK_MARK + ROUND_SUFFIX;
                 downPosition += makeMark(roundResultDto) + ROUND_SUFFIX;
             }

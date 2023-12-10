@@ -1,6 +1,6 @@
 package bridge.view;
 
-import bridge.domain.BridgeMove;
+import bridge.domain.Direction;
 import bridge.domain.BridgeSize;
 import bridge.domain.GameCommand;
 import camp.nextstep.edu.missionutils.Console;
@@ -32,7 +32,7 @@ public class InputView {
     /**
      * 사용자가 이동할 칸을 입력받는다.
      */
-    public BridgeMove readMoving() {
+    public Direction readMoving() {
         System.out.println(READ_BRIDGE_MOVE_MESSAGE);
         return getInputUntilValid(() -> inputMapper.mapToBridgeMove(Console.readLine()));
     }

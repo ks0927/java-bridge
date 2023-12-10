@@ -1,6 +1,6 @@
 package bridge.service;
 
-import bridge.domain.BridgeMove;
+import bridge.domain.Direction;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,7 +24,7 @@ public class BridgeMaker {
     public List<String> makeBridge(int size) {
         return Stream.generate(() -> bridgeNumberGenerator.generate())
                 .limit(size)
-                .map(number -> BridgeMove.numberToPosition(number))
+                .map(number -> Direction.numberToPosition(number))
                 .collect(Collectors.toList());
     }
 }

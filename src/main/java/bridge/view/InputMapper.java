@@ -1,6 +1,6 @@
 package bridge.view;
 
-import bridge.domain.BridgeMove;
+import bridge.domain.Direction;
 import bridge.domain.BridgeSize;
 import bridge.domain.GameCommand;
 
@@ -17,8 +17,8 @@ public class InputMapper {
         return new BridgeSize(bridgeSize);
     }
 
-    public BridgeMove mapToBridgeMove(String input) {
-        return BridgeMove.of(input);
+    public Direction mapToBridgeMove(String input) {
+        return Direction.of(input);
     }
 
     public GameCommand mapToGameCommand(String input) {

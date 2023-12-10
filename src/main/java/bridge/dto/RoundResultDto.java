@@ -1,18 +1,18 @@
 package bridge.dto;
 
-import bridge.domain.BridgeMove;
+import bridge.domain.Direction;
 
 public class RoundResultDto {
-    private BridgeMove bridgeMove;
+    private Direction direction;
     private boolean canMove;
 
-    public RoundResultDto(BridgeMove bridgeMove, boolean canMove) {
-        this.bridgeMove = bridgeMove;
+    public RoundResultDto(Direction direction, boolean canMove) {
+        this.direction = direction;
         this.canMove = canMove;
     }
 
-    public BridgeMove getBridgeMove() {
-        return bridgeMove;
+    public Direction getBridgeMove() {
+        return direction;
     }
 
     public boolean isCanMove() {
